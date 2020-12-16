@@ -7,7 +7,10 @@ const App =  () => {
       <hr></hr>
       <h4>(Under development)</h4>
       <div>
-        <ReactRogue/>
+        <ReactRogue
+          width={40}
+          height={40}
+          tilesize={16}/>
       </div>
     </div>
   );
