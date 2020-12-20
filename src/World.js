@@ -1,3 +1,6 @@
+
+import {Map} from 'rot-js';
+
 class World {
   constructor(width, height, tilesize) {
     this.width = width;
@@ -9,7 +12,7 @@ class World {
       this.worldmap[x] = new Array(this.height);
     }
 
-    this.createRandomMap();
+    this.createCellularMap();
   }
 
   createRandomMap() {
@@ -20,10 +23,28 @@ class World {
     }
   }
 
+  createCellularMap() {
+    var map = new Map.Cellular(this.width, this.height, {connected: true});
+    map.randomize(0.5);
+
+    var userCallback = (x, y, value) => {
+      if (x === 0 || y === 0 || x === this.width -1 || y === this.height -1) {
+        this.worldmap[x][y] = 1; // create wall around edges of map
+        return;
+      }
+
+      this.worldmap[x][y] = (value === 0) ? 1 : 0;
+    }
+
+    map.create(userCallback);
+    map.connect(userCallback, 1);
+  }
+
   draw(context) {
     for (let x = 0; x < this.width; x++) {
       for (let y = 0; y < this.height; y++) {
         if (this.worldmap[x][y] === 1) {
+          console.log('this is one');
           this.drawWall(context, x, y);
         }
       }
