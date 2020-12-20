@@ -1,9 +1,10 @@
 import React, {useRef, useEffect, useState} from 'react';
 import InputManager from './InputManager';
+import Player from './Player';
 
 const ReactRogue = ({width, height, tilesize}) => {
   const canvasRef = useRef();
-  const [player, setPlayer] = useState({x: 64, y: 64});
+  const [player, setPlayer] = useState(new Player(1, 2, tilesize));
   let inputManager = new InputManager();
 
   useEffect(() => {
@@ -21,18 +22,16 @@ const ReactRogue = ({width, height, tilesize}) => {
   useEffect(() => {
     const ctx = canvasRef.current.getContext('2d');
     ctx.clearRect(0, 0, width * tilesize, height * tilesize);
-    ctx.fillSytle='#000';
-    ctx.fillRect(player.x, player.y, 16, 16);
+    player.draw(ctx);
   });
 
   const handleInput = (action, data) => {
     console.log(`handle input: ${action}:${JSON.stringify(data)}`);
     
-    let newPlayer = {...player};
+    let newPlayer = new Player();
+    Object.assign(newPlayer, player);
 
-    newPlayer.x += data.x * tilesize;
-    newPlayer.y += data.y * tilesize;
-
+    newPlayer.move(data.x, data.y);
     setPlayer(newPlayer);
   }
 
