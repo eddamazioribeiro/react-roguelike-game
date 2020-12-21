@@ -1,5 +1,6 @@
 
 import {Map} from 'rot-js';
+import Player from './Player';
 
 class World {
   constructor(width, height, tilesize) {
@@ -7,18 +8,42 @@ class World {
     this.height = height;
     this.tilesize = tilesize;
     this.worldmap = new Array(this.width);
+    this.entities = [new Player(0, 0, 16)];
 
     for (let x = 0; x < this.width; x++) {
       this.worldmap[x] = new Array(this.height);
     }
-
-    this.createCellularMap();
   }
 
-  createRandomMap() {
-    for (let x = 0; x < this.width; x++) {
-      for (let y = 0; y < this.height; y++) {
-        this.worldmap[x][y] = Math.round(Math.random());
+  get player() {
+    return this.entities[0];
+  }
+
+  movePlayer(dx, dy) {
+    let xAux = this.player.x + dx;
+    let yAux = this.player.y + dy;
+
+    if (!this.isWall(xAux, yAux)) {
+      this.player.move(dx, dy);
+    }
+  }
+
+  isWall(dx, dy) {
+    return (
+      this.worldmap[dx] === undefined || 
+      this.worldmap[dy] === undefined || 
+      this.worldmap[dx][dy] === 1);
+  }
+
+  moveToSpace(entity) {
+    for (let x = entity.x; x < this.width; x++) {
+      for (let y = entity.y; y < this.height; y++) {
+        if (this.worldmap[x][y] === 0) {
+          entity.x = x;
+          entity.y = y;
+
+          return;
+        }
       }
     }
   }
@@ -44,11 +69,14 @@ class World {
     for (let x = 0; x < this.width; x++) {
       for (let y = 0; y < this.height; y++) {
         if (this.worldmap[x][y] === 1) {
-          console.log('this is one');
           this.drawWall(context, x, y);
         }
       }
-    }  
+    }
+    
+    this.entities.forEach(e => {
+      e.draw(context);
+    });
   }
 
   drawWall(context, x, y) {

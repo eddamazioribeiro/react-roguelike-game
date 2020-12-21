@@ -5,15 +5,13 @@ import World from './World';
 
 const ReactRogue = ({width, height, tilesize}) => {
   const canvasRef = useRef();
-  const [player, setPlayer] = useState(new Player(1, 2, tilesize));
-  const [world, setWorld] = useState(new World(width, height, tilesize));
   let inputManager = new InputManager();
+  const [world, setWorld] = useState(new World(width, height, tilesize));
 
   useEffect(() => {
     inputManager.bindKeys();
     inputManager.subscribe(handleInput);
-    inputManager.subscribe(handleInput);
-    
+
     return () => {
       inputManager.unbindKeys();
       inputManager.unsubscribe(handleInput);
@@ -24,17 +22,21 @@ const ReactRogue = ({width, height, tilesize}) => {
     const ctx = canvasRef.current.getContext('2d');
     ctx.clearRect(0, 0, width * tilesize, height * tilesize);
     world.draw(ctx);
-    player.draw(ctx);
   });
 
-  const handleInput = (action, data) => {
-    console.log(`handle input: ${action}:${JSON.stringify(data)}`);
-    
-    let newPlayer = new Player();
-    Object.assign(newPlayer, player);
+  useEffect(() => {
+    let newWorld = new World();
+    Object.assign(newWorld, world);
+    newWorld.createCellularMap();
+    newWorld.moveToSpace(world.player);
+    setWorld(newWorld);
+  }, []);
 
-    newPlayer.move(data.x, data.y);
-    setPlayer(newPlayer);
+  const handleInput = (action, data) => {
+    let newWorld = new World();
+    Object.assign(newWorld, world);
+    newWorld.movePlayer(data.x, data.y);
+    setWorld(newWorld);
   }
 
   return (
