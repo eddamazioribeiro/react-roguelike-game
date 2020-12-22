@@ -19,9 +19,24 @@ class World {
     return this.entities[0];
   }
 
+  add(entity) {
+    this.entities.push(entity);
+  }
+
+  getEntityAtLocation(x, y) {
+    return this.entities.find(e => e.x === x && e.y === y);
+  }
+
   movePlayer(dx, dy) {
     let xAux = this.player.x + dx;
     let yAux = this.player.y + dy;
+    let entity = this.getEntityAtLocation(xAux, yAux);
+
+    if (entity) {
+      console.log(entity);
+      entity.action('bump', this);
+      return;
+    }
 
     if (!this.isWall(xAux, yAux)) {
       this.player.move(dx, dy);
