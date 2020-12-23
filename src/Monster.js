@@ -4,6 +4,8 @@ class Monster extends Entity {
   action(verb, world) {
     if (verb === 'bump') {
       // attack
+      if (world.player.attributes.health <= 0) return;
+      
       world.addToHistory(`Player attacks ${this.attributes.name}`);
       this.attributes.health = this.attributes.health - 1;
 
