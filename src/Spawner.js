@@ -5,24 +5,28 @@ import Stairs from './Stairs';
 const lootTable = [
   {
     name: 'Long Sword',
+    class: 'consumable',
     color: 'darkgrey',
     ascii: '/',
     offset: {x: 6, y: 3}
   },
   {
     name: 'Health Potion',
+    class: 'consumable',
     color: 'red',
     ascii: '!',
     offset: {x: 6, y: 3}
   },
   {
     name: 'Gold Coin',
+    class: 'consumable',
     color: 'yellow',
     ascii: '$',
     offset: {x: 3, y: 3}
   },
   {
     name: 'Light Armor',
+    class: 'consumable',
     color: 'lightgrey',
     ascii: '#',
     offset: {x: 6, y: 3}
@@ -32,6 +36,7 @@ const lootTable = [
 const monsterTable = [
   {
     name: 'Ogre',
+    class: 'npc',
     color: 'lightgrey',
     ascii: 'o',
     offset: {x: 2, y: 3},
@@ -40,6 +45,7 @@ const monsterTable = [
   },
   {
     name: 'Kobold',
+    class: 'npc',
     color: 'green',
     ascii: 'k',
     offset: {x: 4, y: 3},
@@ -48,6 +54,7 @@ const monsterTable = [
   },
   {
     name: 'Slime',
+    class: 'npc',
     color: 'darkgreen',
     ascii: 'S',
     offset: {x: 3, y: 2},
@@ -56,6 +63,7 @@ const monsterTable = [
   },
   {
     name: 'Red Dragon',
+    class: 'npc',
     color: 'red',
     ascii: 'D',
     offset: {x: 2, y: 3},

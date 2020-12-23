@@ -38,22 +38,24 @@ class World {
 
   moveMonsters() {
     this.entities.forEach(e => {
-      // 0: none, x: 1, y: 2, 3: both
-      let axis = Math.round(Math.random() * 3);
-      let x = (axis === 3 || axis === 1) ? (Math.round(Math.random()) * 2 - 1) : 0;
-      let y = (axis === 3 || axis === 2) ? (Math.round(Math.random()) * 2 - 1) : 0;
-      
-      if (this.isMovable(e)) this.moveEntity(e, x, y);
+      if (this.isMovable(e) && this.isNPC(e)) {
+        // 0: none, x: 1, y: 2, 3: both
+        let axis = Math.round(Math.random() * 3);
+        let x = (axis === 3 || axis === 1) ? (Math.round(Math.random()) * 2 - 1) : 0;
+        let y = (axis === 3 || axis === 2) ? (Math.round(Math.random()) * 2 - 1) : 0;
+
+        this.moveEntity(e, x, y)
+      }
     });
   }
 
   moveEntity(entity, dx, dy) {
     let xAux = entity.x + dx;
     let yAux = entity.y + dy;
-    let entityAux = this.getEntityAtLocation(xAux, yAux);
+    let entityAt = this.getEntityAtLocation(xAux, yAux);
 
-    if (entityAux) {
-      entityAux.action('bump', this);
+    if (entityAt && entity.attributes.class === 'player') {
+      entityAt.action('bump', this);
       return;
     }
 
@@ -69,9 +71,14 @@ class World {
       this.worldmap[dx][dy] === 1);
   }
 
-  isMovable(entityAux) {
-    return entityAux.attributes.movable !== undefined
-      && entityAux.attributes.movable;
+  isMovable(entity) {
+    return entity.attributes.movable !== undefined
+      && entity.attributes.movable;
+  }
+
+  isNPC(entity) {
+    return entity.attributes.class !== undefined
+      && entity.attributes.class === 'npc';
   }
 
   moveToSpace(entity) {

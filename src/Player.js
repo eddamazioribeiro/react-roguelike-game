@@ -5,9 +5,11 @@ class Player extends Entity{
 
   attributes = {
     name: 'Player',
+    class: 'player',
     ascii: '@',
     health: 10,
-    color: 'red'
+    color: 'red',
+    movable: true
   }
   
   move(dx, dy) {
