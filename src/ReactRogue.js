@@ -7,6 +7,7 @@ const ReactRogue = ({width, height, tilesize}) => {
   const canvasRef = useRef();
   let inputManager = new InputManager();
   const [world, setWorld] = useState(new World(width, height, tilesize));
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
     inputManager.bindKeys();
@@ -37,11 +38,15 @@ const ReactRogue = ({width, height, tilesize}) => {
   }, []);
 
   const handleInput = (action, data) => {
-    let newWorld = new World();
-    Object.assign(newWorld, world);
-    newWorld.movePlayer(data.x, data.y);
-    newWorld.moveMonsters();
-    setWorld(newWorld);
+    if (!gameOver) {
+      let newWorld = new World();
+      Object.assign(newWorld, world);
+      newWorld.movePlayer(data.x, data.y);
+      newWorld.moveMonsters();
+      setWorld(newWorld);
+
+      if (newWorld.gameOver) setGameOver(true);
+    }
   }
 
   return (

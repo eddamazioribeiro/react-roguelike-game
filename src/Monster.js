@@ -20,6 +20,7 @@ class Monster extends Entity {
         if (world.player.attributes.health <= 0) {
           world.addToHistory('You have died!');
           world.player.attributes.ascii = '✝';
+          world.gameOver = true;
         } else {
           world.addToHistory(
             `You have ${world.player.attributes.health} health`
