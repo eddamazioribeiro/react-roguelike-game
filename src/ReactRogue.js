@@ -26,13 +26,17 @@ const ReactRogue = ({width, height, tilesize}) => {
   });
 
   useEffect(() => {
+    showGameOver();
+  }, [gameOver]);
+
+  useEffect(() => {
     let newWorld = new World();
     Object.assign(newWorld, world);
     newWorld.createCellularMap();
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
     spawner.spawnLoot(10);
-    spawner.spawnMonsters(9);
+    spawner.spawnMonsters(999);
     spawner.spawnStairs();
     setWorld(newWorld);
   }, []);
@@ -46,6 +50,17 @@ const ReactRogue = ({width, height, tilesize}) => {
       setWorld(newWorld);
 
       if (newWorld.gameOver) setGameOver(true);
+    }
+  }
+
+  const showGameOver = () => {
+    if (gameOver) {
+      const ctx = canvasRef.current.getContext('2d');
+      ctx.fillStyle = "red";
+      ctx.font = "bold 56px Arial";
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = "center";
+      ctx.fillText("YOU DIED", ((width * tilesize) / 2), ((height * tilesize) / 2));
     }
   }
 

@@ -13,7 +13,7 @@ class Entity {
   draw(context) {
     context.fillStyle = this.attributes.color || 'white';
     context.textBaseline = 'hanging';
-    context.font = '16px Helvetica';
+    context.font = 'bold 16px Helvetica';
     context.fillText(
       this.attributes.ascii,
       this.x * this.size +

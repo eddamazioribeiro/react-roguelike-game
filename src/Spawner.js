@@ -46,7 +46,7 @@ const monsterTable = [
   {
     name: 'Kobold',
     class: 'npc',
-    color: 'green',
+    color: 'brown',
     ascii: 'k',
     offset: {x: 4, y: 3},
     health: 3,
