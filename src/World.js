@@ -33,18 +33,32 @@ class World {
   }
 
   movePlayer(dx, dy) {
-    let xAux = this.player.x + dx;
-    let yAux = this.player.y + dy;
-    let entity = this.getEntityAtLocation(xAux, yAux);
+    this.moveEntity(this.player, dx, dy)
+  }
 
-    if (entity) {
-      console.log(entity);
-      entity.action('bump', this);
+  moveMonsters() {
+    this.entities.forEach(e => {
+      // 0: none, x: 1, y: 2, 3: both
+      let axis = Math.round(Math.random() * 3);
+      let x = (axis === 3 || axis === 1) ? (Math.round(Math.random()) * 2 - 1) : 0;
+      let y = (axis === 3 || axis === 2) ? (Math.round(Math.random()) * 2 - 1) : 0;
+      
+      if (this.isMovable(e)) this.moveEntity(e, x, y);
+    });
+  }
+
+  moveEntity(entity, dx, dy) {
+    let xAux = entity.x + dx;
+    let yAux = entity.y + dy;
+    let entityAux = this.getEntityAtLocation(xAux, yAux);
+
+    if (entityAux) {
+      entityAux.action('bump', this);
       return;
     }
 
     if (!this.isWall(xAux, yAux)) {
-      this.player.move(dx, dy);
+      entity.move(dx, dy);
     }
   }
 
@@ -53,6 +67,11 @@ class World {
       this.worldmap[dx] === undefined || 
       this.worldmap[dy] === undefined || 
       this.worldmap[dx][dy] === 1);
+  }
+
+  isMovable(entityAux) {
+    return entityAux.attributes.movable !== undefined
+      && entityAux.attributes.movable;
   }
 
   moveToSpace(entity) {

@@ -22,6 +22,11 @@ class Entity {
         (this.attributes.offset ? this.attributes.offset.y : 0)
     );
   }
+
+  move(dx, dy) {
+    this.x += dx;
+    this.y += dy;
+  }
 }
 
 export default Entity;

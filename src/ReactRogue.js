@@ -40,6 +40,7 @@ const ReactRogue = ({width, height, tilesize}) => {
     let newWorld = new World();
     Object.assign(newWorld, world);
     newWorld.movePlayer(data.x, data.y);
+    newWorld.moveMonsters();
     setWorld(newWorld);
   }
 

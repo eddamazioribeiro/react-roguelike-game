@@ -28,6 +28,11 @@ class Monster extends Entity {
       }
     } 
   }
+
+  move(dx, dy) {
+    this.x += dx;
+    this.y += dy;
+  }
 }
 
 export default Monster;
