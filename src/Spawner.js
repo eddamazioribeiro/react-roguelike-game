@@ -1,4 +1,5 @@
 import Loot from './Loot';
+import Monster from './Monster';
 
 const lootTable = [
   {
@@ -24,6 +25,37 @@ const lootTable = [
     color: 'lightgrey',
     ascii: '#',
     offset: {x: 6, y: 3}
+  },
+];
+
+const monsterTable = [
+  {
+    name: 'Ogre',
+    color: 'lightgrey',
+    ascii: 'o',
+    offset: {x: 2, y: 3},
+    health: 6
+  },
+  {
+    name: 'Kobold',
+    color: 'green',
+    ascii: 'k',
+    offset: {x: 4, y: 3},
+    health: 3
+  },
+  {
+    name: 'Slime',
+    color: 'darkgreen',
+    ascii: 'S',
+    offset: {x: 3, y: 2},
+    health: 2
+  },
+  {
+    name: 'Red Dragon',
+    color: 'red',
+    ascii: 'D',
+    offset: {x: 2, y: 3},
+    health: 10
   },
 ];
 
@@ -53,6 +85,16 @@ class Spawner {
         lootTable[getRandomInt(lootTable.length)]);
     });
   }
+
+  spawnMonsters(spawnCount) {
+    this.spawn(spawnCount, () => {
+      return new Monster(
+        getRandomInt(this.world.width),
+        getRandomInt(this.world.height),
+        this.world.tilesize,
+        monsterTable[getRandomInt(lootTable.length)]);
+    });
+  }  
 } 
 
 export default Spawner;
