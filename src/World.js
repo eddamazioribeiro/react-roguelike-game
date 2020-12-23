@@ -23,6 +23,10 @@ class World {
     this.entities.push(entity);
   }
 
+  remove(entity) {
+    this.entities = this.entities.filter(e => e !== entity);
+  }
+
   getEntityAtLocation(x, y) {
     return this.entities.find(e => e.x === x && e.y === y);
   }
