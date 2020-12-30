@@ -69,14 +69,23 @@ const ReactRogue = ({width, height, tilesize}) => {
 
   return (
     <>
-      <Inventory items={world.player.inventory}/>
-      <canvas
-        ref={canvasRef}
-        width={width  * tilesize}
-        height={height * tilesize}
-        style={{border: '1px solid black', background: 'DimGrey'}}>
-      </canvas>
-      <Journal history={world.history}/>
+      <div className='row mt-4'>
+        <div className='col-3'>
+          <Inventory
+            items={world.player.inventory}/>     
+        </div>
+        <div className='col-6 d-flex justify-content-center'>
+          <canvas
+            ref={canvasRef}
+            width={width  * tilesize}
+            height={height * tilesize}
+            style={{border: '1px solid black', background: 'DimGrey'}}>
+          </canvas>
+        </div>
+        <div className='col-3'>
+          <Journal history={world.history}/>
+        </div>
+      </div>
     </>
   );
 }

@@ -1,0 +1,17 @@
+/* import font */
+@font-face {
+  font-family: 'EarlyGameboy';
+  src: url('./assets/font/EarlyGameBoy.ttf') format('truetype')
+}
+
+body {
+  background-color: rgb(51, 51, 51);
+  color: rgb(236, 235, 209);
+  text-shadow: 8px 3px black;
+  /* font-family: EarlyGameboy; */
+}
+
+.title {
+  margin-left: 5px;
+  font-family: EarlyGameboy;
+}

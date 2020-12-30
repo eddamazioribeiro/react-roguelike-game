@@ -9,7 +9,7 @@ class World {
     this.tilesize = tilesize;
     this.worldmap = new Array(this.width);
     this.entities = [new Player(0, 0, 16)];
-    this.history = ['You entered the Dungeon...', '==='];
+    this.history = ['You entered the Dungeon...'];
     this.gameOver = false;
 
     for (let x = 0; x < this.width; x++) {
