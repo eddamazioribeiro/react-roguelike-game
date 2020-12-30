@@ -2,6 +2,9 @@ import React, {useRef, useEffect, useState} from 'react';
 import InputManager from './InputManager';
 import World from './World';
 import Spawner from './Spawner';
+//
+import Inventory from './Inventory';
+import Journal from './Journal';
 
 const ReactRogue = ({width, height, tilesize}) => {
   const canvasRef = useRef();
@@ -66,24 +69,14 @@ const ReactRogue = ({width, height, tilesize}) => {
 
   return (
     <>
+      <Inventory items={world.player.inventory}/>
       <canvas
         ref={canvasRef}
         width={width  * tilesize}
         height={height * tilesize}
         style={{border: '1px solid black', background: 'DimGrey'}}>
       </canvas>
-      <h4>Inventory</h4>
-      <ul>
-        {world.player.inventory.map((item, index) => (
-          <li key={index}>{item.attributes.name}</li>
-        ))}
-      </ul>
-      <h4>Journal</h4>
-      <ul>
-        {world.history.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+      <Journal history={world.history}/>
     </>
   );
 }
