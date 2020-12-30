@@ -60,7 +60,7 @@ const ReactRogue = ({width, height, tilesize}) => {
     if (gameOver) {
       const ctx = canvasRef.current.getContext('2d');
       ctx.fillStyle = "red";
-      ctx.font = "bold 56px Arial";
+      ctx.font = "bold 56px EarlyGameboy";
       ctx.textBaseline = 'middle';
       ctx.textAlign = "center";
       ctx.fillText("YOU DIED", ((width * tilesize) / 2), ((height * tilesize) / 2));
