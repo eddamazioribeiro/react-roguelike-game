@@ -1,3 +1,4 @@
+
 class InputManager {
   observer = [];
 
@@ -10,12 +11,7 @@ class InputManager {
   }
 
   broadcast(action, data) {
-    this.observer.forEach(subscriber => {
-      console.log('subscriber', subscriber);
-      console.log('action', action);
-      console.log('data', data);
-      subscriber(action, data)
-    });
+    this.observer.forEach(subscriber => subscriber(action, data));
   }
 
   handleKeys = e => {
